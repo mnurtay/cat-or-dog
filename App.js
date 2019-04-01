@@ -6,7 +6,7 @@ import thunk from 'redux-thunk'
 
 import Reducer from './src/reducer'
 import Holder from './src/component/HolderComponent'
-import ClassifyContainer from './src/container/ClassifyContainer'
+import Router from './src/navigation'
 
 const middleware = applyMiddleware(thunk)
 const store = createStore(Reducer, middleware)
@@ -31,7 +31,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <Holder isLoading={!this.state.fontLoaded}>
-          <ClassifyContainer />
+          <Router />
         </Holder>
       </Provider>
     );

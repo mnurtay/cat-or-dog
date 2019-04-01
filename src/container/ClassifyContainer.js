@@ -4,9 +4,12 @@ import ClassifyComponent from '../component/ClassifyComponent'
 import {onResultFetching} from '../action/ClassifyAction'
 
 class ClassifyContainer extends Component{
-    constructor(props){
-        super(props)
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: 'Cat or Dog'
+        }
     }
+
     render(){
         return(
             <ClassifyComponent />
