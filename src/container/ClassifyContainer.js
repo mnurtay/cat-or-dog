@@ -12,7 +12,7 @@ class ClassifyContainer extends Component{
 
     render(){
         return(
-            <ClassifyComponent />
+            <ClassifyComponent navigation={this.props.navigation}/>
         )
     }
 }

@@ -1,12 +1,16 @@
 import React from 'react'
 import { createAppContainer, createStackNavigator } from 'react-navigation'
 import ClassifyContainer from '../container/ClassifyContainer'
+import CameraContainer from '../container/CameraContainer'
 import { MAIN_COLOR } from '../util/constants'
 
 let Stack = createStackNavigator(
     {
         Classify: {
             screen: ClassifyContainer
+        },
+        Camera:{
+            screen: CameraContainer
         }
     },
     {

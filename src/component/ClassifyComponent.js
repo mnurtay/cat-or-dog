@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, Dimensions } from 'react-native'
 import { Button } from 'react-native-elements'
 import { MAIN_COLOR_2 } from '../util/constants'
-import CameraComponent from './CameraComponent'
 
 const w = Dimensions.get('window').width
 
@@ -26,11 +25,7 @@ export default class ClassifyComponent extends Component{
                         title={'Open camera'}
                         buttonStyle={styles.btnStyle}
                         titleStyle={{ fontFamily:'sf-regular', fontSize:15, color:'white' }}
-                        onPress={()=>this.setState({ modalVisible:true })}
-                    />
-                    <CameraComponent
-                        isVisible={this.state.modalVisible}
-                        closeModal={this._closeModal}
+                        onPress={()=>this.props.navigation.navigate('Camera')}
                     />
                 </View>
             </View>
