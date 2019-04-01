@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import ClassifyComponent from '../component/ClassifyComponent'
+import HolderComponent from '../component/HolderComponent'
 import {onResultFetching} from '../action/ClassifyAction'
 
 class ClassifyContainer extends Component{
@@ -15,17 +16,18 @@ class ClassifyContainer extends Component{
     }
 
     render(){
-        let {uri} = this.props.CameraReducer
-        // let {result, resultLoading, isError} = this.props.ClassifyReducer
-        // if(uri){
-        //     this.getResult(uri)
-        // }
+        let {uri, uriLoading} = this.props.CameraReducer
+        let {resultLoading} = this.props.ClassifyReducer
         return(
-            <ClassifyComponent
-                navigation={this.props.navigation}
-                pictureUri={uri}
-                result={'Cat'}
-            />
+            <HolderComponent 
+            isLoading = {resultLoading || uriLoading}
+            >
+                <ClassifyComponent
+                    navigation={this.props.navigation}
+                    pictureUri={uri}
+                    result={'Cat'}
+                />
+            </HolderComponent>
         )
     }
 }

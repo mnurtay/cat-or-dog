@@ -1,6 +1,6 @@
 
 export const HOSTS = [
-    ''
+    'https://classification-backend.herokuapp.com/v1/'
 ]
 
 export const MAIN_COLOR = '#4497FF'

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CameraComponent from '../component/CameraComponent'
 import {onCameraFetching} from '../action/CameraAction'
+import {onResultFetching} from '../action/ClassifyAction'
 import {connect} from 'react-redux'
 
 class CameraContainer extends Component{
@@ -8,8 +9,9 @@ class CameraContainer extends Component{
         header: null
     }
 
-    _setPicture = (uri) => {
+    _setPicture = async (uri) => {
         this.props._on_camera_fetching(uri)
+        this.props._on_result_fetching(uri)
     }
 
     render(){
@@ -33,6 +35,9 @@ const mapDispatchToProps = dispatch => {
     return {
         _on_camera_fetching: async (uri) => {
             await dispatch(await onCameraFetching(uri))
+        },
+        _on_result_fetching: async (uri) => {
+            await dispatch(await onResultFetching(uri))
         }
     }
 }
