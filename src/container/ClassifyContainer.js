@@ -10,23 +10,37 @@ class ClassifyContainer extends Component{
         }
     }
 
+    getResult = (uri) => {
+        this.props._on_result_fetching(uri)
+    }
+
     render(){
+        let {uri} = this.props.CameraReducer
+        // let {result, resultLoading, isError} = this.props.ClassifyReducer
+        // if(uri){
+        //     this.getResult(uri)
+        // }
         return(
-            <ClassifyComponent navigation={this.props.navigation}/>
+            <ClassifyComponent
+                navigation={this.props.navigation}
+                pictureUri={uri}
+                result={'Cat'}
+            />
         )
     }
 }
 
 const mapStateToProps = state => {
     return {
-        ClassifyReducer: state.ClassifyReducer
+        ClassifyReducer: state.ClassifyReducer,
+        CameraReducer: state.CameraReducer
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        _on_result_fetching: async () => {
-            await dispatch(await onResultFetching())
+        _on_result_fetching: async (uri) => {
+            await dispatch(await onResultFetching(uri))
         }
     }
 }

@@ -11,7 +11,7 @@ export default class CameraComponent extends Component{
         super(props)
         this.state = {
             hasCameraPermission: null,
-            type: Camera.Constants.Type.back
+            type: Camera.Constants.Type.back,
         }
     }
 
@@ -20,9 +20,22 @@ export default class CameraComponent extends Component{
         this.setState({ hasCameraPermission: status==='granted' })
     }
 
+    takePicture = async() => {
+        let photo = null
+        if (this.camera){
+            photo = await this.camera.takePictureAsync()
+        }
+        this.props.setPicture(photo.uri)
+        this.props.navigation.goBack()
+    }
+
     render(){
-        let {navigtion} = this.props
+        let {navigation} = this.props
         let { hasCameraPermission } = this.state
+        if(hasCameraPermission === null){
+            <View/>
+        }
+
         if(hasCameraPermission === false){
             return(
                 <View style={styles.errorView}>
@@ -38,11 +51,38 @@ export default class CameraComponent extends Component{
                         type={this.state.type}
                         autoFocus={'on'}
                         ratio={'4:3'}
+                        ref={ref=>{this.camera=ref;}}
                     />
                 </View>
                 <View style={styles.panel}>
                     <View style={{ flexDirection:'row', justifyContent:'space-between' }}>
-                        
+                        {/* --- Flip camera --- */}
+                        <View style={styles.box} >
+                            <Text
+                                style={styles.panelText}
+                                onPress={()=>{
+                                    this.setState({
+                                        type: this.state.type === Camera.Constants.Type.back
+                                        ? Camera.Constants.Type.front
+                                        : Camera.Constants.Type.back,
+                                    })
+                                }}> Flip </Text>
+                        </View>
+                        {/* --- Take Picture --- */}
+                        <View style={styles.box}>
+                            <View style={styles.borderCircle}>
+                                <TouchableOpacity
+                                    style={styles.btnCircle}
+                                    onPress={()=>this.takePicture()}
+                                />
+                            </View>
+                        </View>
+                        {/* --- Go Back --- */}
+                        <View style={styles.box}>
+                            <Text 
+                                style={styles.panelText}
+                                onPress={()=>navigation.goBack()}>Go Back</Text>
+                        </View>
                     </View>
                 </View>
             </View>
@@ -73,5 +113,30 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    box: {
+        width: w/3,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    panelText: {
+        fontFamily: 'sf-regular',
+        fontSize: 15,
+        color: 'white'
+    },
+    borderCircle: {
+        width: 70,
+        height: 70,
+        borderWidth: 1,
+        borderRadius: 70,
+        borderColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    btnCircle: {
+        width: 65,
+        height: 65,
+        borderRadius: 65,
+        backgroundColor: 'white'
     }
 })
