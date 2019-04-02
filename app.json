@@ -24,6 +24,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Mobile application for React Native. The application classifies animals using machine learning. More precisely a cat or a dog.",
+    "githubUrl": "https://github.com/nurtaims/cat-or-dog.git"
   }
 }
