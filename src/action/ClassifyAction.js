@@ -17,22 +17,23 @@ function onResultFulfilled(obj){
 }
 
 export async function onResultFetching(img){
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         dispatch(onResultPending())
-        URL = HOSTS[0] + ''
+        URL = HOSTS[0] + 'classify/'
         result_obj = {
             result: null,
             resultLoading: false,
             isError: false
         }
         try{
-            let resp = await Axios.post(img)
+            let resp = await Axios.post(URL)
             console.log('ACTION_RESULTS_SUCCESS',resp.data)
             result_obj.result = resp.data
         }catch(error){
             console.log('ACTION_RESULTS_ERROR', error)
             result_obj.isError = true
         }
-        dispatch(onResultFulfilled(result_obj))
+
+        dispatch(onResultFulfilled({result: null}))
     }
 }
