@@ -1,7 +1,9 @@
 import * as types from '../util/types'
 
 let initial_state = {
-    result: null,
+    result: {
+        class: 'Loading...'
+    },
     resultLoading: false,
     isError: false,
 }

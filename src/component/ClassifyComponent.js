@@ -12,7 +12,7 @@ export default class ClassifyComponent extends Component{
     }
 
     render(){
-        let {navigation, pictureUri, result} = this.props
+        let {navigation, pictureUri, result, resultLoading} = this.props
         let image = null
         if(pictureUri){
             image = (
@@ -21,7 +21,13 @@ export default class ClassifyComponent extends Component{
                         <ImageHandler url={pictureUri} ratio={0.9}/>
                     </View>
                     <View style={styles.resultView}>
-                        <Text style={styles.text}>Result: {result}</Text>
+                        {
+                            resultLoading
+                            ?
+                            <Text style={styles.text}>Loading...</Text>
+                            :
+                            <Text style={styles.text}>Result: {result.class}, accuracy: {result.accuracy}</Text>
+                        }
                     </View>
                 </View>
             )
